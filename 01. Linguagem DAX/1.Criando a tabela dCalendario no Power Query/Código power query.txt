@@ -1,0 +1,28 @@
+let
+    // Defina o intervalo de datas desejado
+    DataInicio = #date(2022, 1, 1),
+    DataFim = #date(2026, 12, 31),
+    
+    // Cria uma lista de datas entre DataInicio e DataFim
+    ListaDatas = List.Dates(DataInicio, Duration.Days(DataFim - DataInicio) + 1, #duration(1, 0, 0, 0)),
+    
+    // Converte a lista de datas em uma tabela
+    TabelaDatas = Table.FromList(ListaDatas, Splitter.SplitByNothing(), {"Data"}),
+    
+    // Adiciona colunas derivadas da data base
+    TipoAlterado = Table.TransformColumnTypes(TabelaDatas,{{"Data", type date}}),
+    Ano = Table.AddColumn(TipoAlterado, "Ano", each Date.Year([Data]), Int64.Type),
+    MêsNumero = Table.AddColumn(Ano, "MêsNumero", each Date.Month([Data]), Int64.Type),
+    MêsNome = Table.AddColumn(MêsNumero, "MêsNome", each Date.ToText([Data], "MMMM"), type text),
+    MêsNomeMaiscula = Table.TransformColumns(MêsNome,{{"MêsNome", Text.Proper, type text}}),
+    Trimestre = Table.AddColumn(MêsNomeMaiscula, "Trimestre", each Date.QuarterOfYear([Data]), Int64.Type),
+    Dia = Table.AddColumn(Trimestre, "Dia", each Date.Day([Data]), Int64.Type),
+    DiaDoAno = Table.AddColumn(Dia, "DiaDoAno", each Date.DayOfYear([Data]), Int64.Type),
+    DiaDaSemana = Table.AddColumn(DiaDoAno, "DiaDaSemana", each Date.DayOfWeek([Data]), Int64.Type),
+    DiaDaSemanaNome = Table.AddColumn(DiaDaSemana, "DiaDaSemanaNome", each Date.ToText([Data], "dddd"), type text),
+    DiaDaSemanaNomeMaiscula = Table.TransformColumns(DiaDaSemanaNome,{{"DiaDaSemanaNome", Text.Proper, type text}}),
+    SemanaDoAno = Table.AddColumn(DiaDaSemanaNomeMaiscula, "SemanaDoAno", each Date.WeekOfYear([Data]), Int64.Type),
+    MêsAno = Table.AddColumn(SemanaDoAno, "MêsAno", each Text.From([MêsNumero]) & "-" & Text.From([Ano]), type text),
+    IsFinalDeSemana = Table.AddColumn(MêsAno, "IsFinalDeSemana", each Date.DayOfWeek([Data], Day.Sunday) = 0 or Date.DayOfWeek([Data], Day.Sunday) = 6, type logical)
+in
+    IsFinalDeSemana
