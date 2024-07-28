@@ -1,0 +1,10 @@
+idProduto, NomeProduto, CategoriaProduto, jan/21, fev/21, mar/21, abr/21, mai/21, jun/21
+Prod1, Laranja, Frutas, 0.75, 0.65, 0.91, 0.62, 0.78, 0.95
+Prod10, Berinjela, Legumes, 2.60, 2.61, 2.77, 2.59, 2.68, 2.79
+Prod3, Uva, Frutas, 2.80, 2.64, 2.61, 2.72, 2.87, 2.67
+Prod4, Kiwi, Frutas, 15.60, 15.52, 15.55, 15.76, 15.43, 15.52
+Prod5, Alface, Verduras, 2.60, 2.48, 2.61, 2.66, 2.44, 2.51
+Prod6, Repolho, Verduras, 0.68, 0.63, 0.55, 0.87, 0.87, 0.81
+Prod7, Rúcula, Verduras, 1.20, 1.10, 1.36, 1.16, 1.35, 1.23
+Prod8, Beterraba, Legumes, 0.95, 0.76, 0.83, 0.93, 0.80, 1.10
+Prod9, Abóbora, Legumes, 1.35, 1.52, 1.23, 1.29, 1.32, 1.20
