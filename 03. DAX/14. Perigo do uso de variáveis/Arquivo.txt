@@ -1,0 +1,1 @@
+Não podemos utilizar uma variável como primeiro argumento em uma calculate. Variáveis não permitem mudar o contexto dela na calculate.
